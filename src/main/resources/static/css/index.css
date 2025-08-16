@@ -1,0 +1,34 @@
+/* Search Box */
+
+.section_container {
+    display: flex;
+    flex-flow: wrap column;
+    align-items: center;
+}
+
+.search_txt {
+    padding-top: 10vh;
+    text-align: center;
+}
+
+.search_box {
+    text-align: center;
+}
+
+.search_box select {
+    padding-left: 10px;
+    width: 250px;
+    height: 35px;
+    border: 1px solid rgb(179, 179, 179);
+    font-size: 1rem;
+    border-radius: 5px;
+    box-shadow: 1px 1px #ccc;
+}
+
+/*hero image*/
+
+.hero_background {
+    padding-top: 10vh;
+    width: 100%;
+    box-shadow: 1px 1px #ccc;
+}

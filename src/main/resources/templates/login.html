@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fa">
+<!-- بخش هدر -->
+<header th:insert="fragments/header.html :: header('دکتر نوبت | ورود', '/css/login.css')"></header>
+<body>
+<main>
+    <!-- بخش نوار ناوبری -->
+    <nav th:insert="fragments/navbar.html :: navbar"></nav>
+
+    <!-- فرم ورود -->
+    <section>
+        <form class="login_container" th:action="@{/loginUser}" method="POST" style="text-align: right;">
+            <h3>ورود به حساب کاربری</h3>
+            <p th:if="${loginError}" style="color: red;" th:text="${loginError}"></p>
+            <p th:if="${regSuccess}" style="color: green;" th:text="${regSuccess}"></p>
+            <input type="text" name="username" placeholder="نام کاربری را وارد کنید" class="login_reg_input" required>
+            <input type="password" name="password" placeholder="رمز عبور را وارد کنید" class="login_reg_input" required>
+            <button type="submit" class="button_style">ورود</button>
+        </form>
+    </section>
+</main>
+<!-- بخش فوتر -->
+</body>
+</html>

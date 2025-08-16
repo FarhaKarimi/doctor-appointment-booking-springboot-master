@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap');
+
+/*
+* px  : absolute value
+* vw  : absolute value
+* vh  : absolute value
+* %   : relative to parent
+* em  : relative to parent (for font only)
+* rem : relative to root (for font only)
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --primary-background-color: #f8f9fa;
+    --secondary-background-color: #ffffff;
+
+    --primary-link-color: #0c01fe;
+    --secondary-link-color: #070180;
+
+    --primary-txt-color: #000000;
+    --secondary-txt-color: #444444;
+
+    --primary-button-color: #0c01fe;
+    --primary-button-text-color: #ffffff;
+
+    --regular-font: 'Roboto', sans-serif;
+}
+
+body {
+    width: 100%;
+    background: var(--primary-background-color);
+    font-family: var(--regular-font);
+}
+
+a:link {
+    text-decoration: none;
+    color: var(--primary-link-color);
+}
+
+a:visited {
+    text-decoration: none;
+    color: var(--primary-link-color);
+}
+
+a:hover {
+    text-decoration: none;
+    color: var(--secondary-link-color);
+}
+
+a:active {
+    text-decoration: none;
+    color: var(--secondary-link-color);
+}
+
+/* Override Bootstrap navbar */
+.navbar-nav a:link {
+    color: var(--primary-link-color);
+}
+
+.navbar-nav a:visited {
+    color: var(--primary-link-color);
+}
+
+.navbar-nav a:hover {
+    color: var(--secondary-link-color);
+}
+
+.navbar-nav a:active {
+    color: var(--secondary-link-color);
+}
+
+.custom_navbar {
+    font-size: 1rem;
+    box-shadow: 1px 1px rgb(238, 238, 238);
+}
+
+/* Button Style */
+.button_style {
+    background-color: var(--primary-button-color);
+    border: none;
+    color: var(--primary-button-text-color);
+    height: 35px;
+    width: 85px;
+    text-align: center;
+    font-size: 1rem;
+    border-radius: 5px;
+    box-shadow: 1px 1px #ccc;
+    cursor: pointer;
+}
+
+/* Footer */
+
+footer {
+    background-color: var(--secondary-background-color);
+    text-align: center;
+    box-shadow: 0px -1px rgb(238, 238, 238);
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+}
+
+footer p {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--primary-txt-color);
+}

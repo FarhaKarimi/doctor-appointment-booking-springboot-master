@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Header Section -->
+<header th:insert="fragments/header.html :: header('DrAppointment | Registration', '/css/registration.css')"></header>
+<body>
+<main>
+    <!-- Navbar Section -->
+    <nav th:insert="fragments/navbar.html :: navbar"></nav>
+
+    <!-- Registration Form Section -->
+    <section>
+        <form class="reg_container" th:action="@{registration/addUser}" method="POST">
+            <h3>Registration Now</h3>
+            <p th:if="${regError}" style="color: red;" th:text="${regError}"></p>
+            <input type="username" name="username" required placeholder="Enter Username" class="login_reg_input">
+            <input type="password" name="password" required placeholder="Enter Password" class="login_reg_input">
+            <!-- This option should remove from production unit -->
+            <select name="role" class="login_reg_input">
+                <option value="PATIENT">Patient</option>
+                <option value="DOCTOR">Doctor</option>
+                <option value="ADMIN">Admin</option>
+            </select>
+            <button type="submit" class="button_style">Signup</button>
+        </form>
+    </section>
+</main>
+<!-- Footer Section -->
+<footer th:insert="fragments/footer.html :: footer"></footer>
+</body>
+</html>

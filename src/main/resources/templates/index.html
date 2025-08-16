@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<!-- بخش هدر -->
+<header th:insert="fragments/header.html :: header('دکترآپ | خانه', '/css/index.css')"></header>
+<body>
+<main>
+    <!-- بخش نوار ناوبری -->
+    <nav th:insert="fragments/navbar.html :: navbar"></nav>
+
+    <!-- بخش جستجو -->
+    <section class="section_container" style="text-align: center; padding: 50px 20px; background: #f9f9f9;">
+        <div class="search_txt" style="margin-bottom: 20px;">
+            <h1 style="font-family: 'Vazir', sans-serif; font-size: 2rem; color: #333;">پزشک مناسب خود را به‌سادگی بیابید و نوبت خود را آنلاین رزرو کنید.</h1>
+            <p style="color: #555; font-size: 1.1rem;">در مسیر سلامتی، ما شما را به بهترین پزشکان متصل می‌کنیم.</p>
+        </div>
+
+        <div class="search_box" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;">
+            <form id="searchForm" action="/search" method="GET" style="display: flex; flex-wrap: wrap; gap: 10px;">
+
+                <!-- انتخاب استان -->
+                <select id="division" name="division" style="padding: 1px; border-radius: 8px; border: 1px solid #ccc; min-width: 180px;">
+                    <option value="">انتخاب استان</option>
+                    <th:block th:each="province : ${searchElement.getDivisionList()}">
+                        <option th:value="${province}" th:text="${province}"></option>
+                    </th:block>
+                </select>
+
+                <!-- انتخاب شهرستان (پویا) -->
+                <select id="district" name="district" style="padding: 1px; border-radius: 8px; border: 1px solid #ccc; min-width: 180px;" disabled>
+                    <option value="">ابتدا استان را انتخاب کنید</option>
+                </select>
+
+                <!-- انتخاب تخصص -->
+                <select id="specialty" name="specialty" style="padding: 1px; border-radius: 8px; border: 1px solid #ccc; min-width: 180px;">
+                    <option value="">انتخاب تخصص</option>
+                    <th:block th:each="specialty : ${searchElement.getSpecialtyList()}">
+                        <option th:value="${specialty}" th:text="${specialty}"></option>
+                    </th:block>
+                </select>
+
+                <!-- دکمه جستجو -->
+                <input type="submit" value="🔍 جستجو" class="button_style"
+                       style="background: #007bff; color: white; border: none; padding: 1px 1px; border-radius: 8px; cursor: pointer; font-weight: bold;">
+            </form>
+        </div>
+    </section>
+
+    <!-- بخش تصویر اصلی -->
+    <section style="margin-top: 30px; text-align: center;">
+        <img class="hero_background" src="/img/hero_background.png" alt="پس‌زمینه صفحه"
+             style="max-width: 90%; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+    </section>
+
+    <br/><br/><br/>
+</main>
+
+
+<!-- اضافه کردن jQuery (اگر قبلاً اضافه نشده) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        const districtSelect = $('#district');
+        const divisionSelect = $('#division');
+
+        divisionSelect.change(function () {
+            const selectedProvince = $(this).val();
+
+            if (!selectedProvince) {
+                districtSelect.prop('disabled', true).html('<option value="">ابتدا استان را انتخاب کنید</option>');
+                return;
+            }
+
+            districtSelect.prop('disabled', false).html('<option value="">در حال بارگذاری...</option>');
+
+            $.ajax({
+                url: '/api/districts/' + encodeURIComponent(selectedProvince),
+                method: 'GET',
+                dataType: 'json', // ⭐ این خط رو اضافه کن
+                success: function (districts) {
+                    // حالا مطمئنیم districts یک آرایه است
+                    let options = '<option value="">انتخاب شهرستان</option>';
+
+                    if (Array.isArray(districts) && districts.length > 0) {
+                        districts.forEach(function (district) {
+                            options += `<option value="${district}">${district}</option>`;
+                        });
+                    } else {
+                        options += '<option disabled>شهرستانی یافت نشد</option>';
+                    }
+                    districtSelect.html(options);
+                },
+                error: function (xhr, status, error) {
+                    console.error("خطا در بارگذاری شهرستان‌ها:", error);
+                    districtSelect.html('<option value="">خطا در بارگذاری</option>');
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
